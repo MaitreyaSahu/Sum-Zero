@@ -1,0 +1,97 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <label>
+        Type Length:
+    </label>
+    <input id="arrLength" type="text" />    
+    <button id="btnGo" onclick="getArray()">
+        Go</button>
+    <button id="btnGo2" onclick="getArray2()">
+        Go2</button>
+        <br />
+        <label id= "lblResult"></label>
+</body>
+<script type="text/javascript">
+    function getArray() {
+        //debugger;
+        var arrLen = $('#arrLength').val();
+        if (arrLen <= 1) {
+            //alert('length must be greater than 1');
+            $('#lblResult').html('length must be greater than 1');
+            return;
+        }
+        var resultArray = [];
+        var evenHalf = 0;
+        //console.log(arrLen);
+
+        if (arrLen % 2 != 0) {
+            evenHalf = (arrLen - 3) / 2;
+            var a = getRandomNumber(100);
+            var b = getRandomNumber(100);
+            var c = 0 - (a + b);
+
+            while ((a + b + c) != 0) {
+                var b = getRandomNumber(100);
+                c = 0 - (a + b);
+            }
+
+            resultArray.splice(0, 0, a, b, c);
+            //console.log(a + ' - ' + b + ' - ' + c);
+        }
+        else {
+            evenHalf = arrLen / 2;
+        }
+
+        var x = getRandomNumber(100);
+        for (var i = 0; i < evenHalf; i++) {
+
+            while (resultArray.indexOf(x) != -1) {
+                x = getRandomNumber(100);
+            }
+
+            resultArray.splice(getRandomNumber(i), 0, x);
+            resultArray.splice(getRandomNumber(i), 0, x * -1);
+
+        }
+
+        //console.log(resultArray);
+        $('#lblResult').html(resultArray.toString());
+    }
+
+    function getRandomNumber(limit) {
+        var sign = Math.random() > 0.5 ? -1 : 1;
+        return sign * (Math.floor(Math.random() * limit) + 1);
+    }
+
+    function getArray2() {
+        var arrLen = $('#arrLength').val();
+        if (arrLen <= 1) {
+            $('#lblResult').html('length must be greater than 1');
+            //alert('length must be greater than 1');
+            return;
+        }
+        var resultArray = [];
+        var x = 0;
+        do {
+            resultArray = [];
+            for (var i = 0; (i < arrLen); i++) {
+
+                x = getRandomNumber(100);
+                resultArray.splice(0, 0, x);
+            }
+            //console.log(resultArray);
+        } while (resultArray.reduce(getSum) != 0);
+
+        //console.log(resultArray);
+        $('#lblResult').html(resultArray.toString());
+        
+    }
+
+    function getSum(total, num) {
+        return total + num;
+    }
+</script>
+</html>
